@@ -12,7 +12,7 @@ values
 
 insert into reader(reader_id, reader_name, reader_address)
 values
-(1, 'Trần Quốc Hiếu', 'HCM'),
+(1, 'Trần Quốc An', 'HCM'),
 (2, 'Trịnh Đình Nam', 'HCM'),
 (3, 'Nguyễn Võ Thanh Sơn', 'HCM');
 
