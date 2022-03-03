@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<title>User List</title>
+<!-- Read Dedicated CSS -->
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div
+			class="header border-bottom row row-cols-auto justify-content-between mx-3">
+			<h1 class="h2" th:text="#{bookList}"></h1>
+			<a class="btn btn-success" th:href="@{/book/add}"> ADD </a>
+		</div>
+		<div class="mb-4">
+			<form id="user-search-form" method="post" th:action="@{/book/list}"
+				class="form-inline" th:object="${authorListForm}">
+				<div class="form-group mr-3">
+					<label for="userId" class="mr-2" th:text="#{searchNameAuthor}"></label>
+					<select value ="0" th:field="*{authorId}">
+						<option value="0" selected="selected">All</option>
+						<option th:each="item,state: ${authorList}"
+							th:value="${item.authorId}" th:text="${item.name}">
+					</select>
+				</div>
+				<button class="btn btn-primary" type="submit" th:text="#{btnSearch}">Search</button>
+			</form>
+		</div>
+		<!-- List display -->
+		<div>
+			<table class="table table-striped table-bordered table-hover">
+				<thead class="thead-light">
+					<tr>
+						<th class="th-width text-center" th:text="#{stt}"></th>
+						<th class="th-width" th:text="#{bookTitle}"></th>
+						<th class="th-width" th:text="#{bookIsbn}"></th>
+						<th class="th-width" th:text="#{bookAuthor}"></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item,state: ${bookList}">
+						<td class="text-center" th:text="${state.count}"></td>
+						<td th:text="${item.title}"></td>
+						<td th:text="${item.isbn}"></td>
+						<td th:text="${item.author.name}"></td>
+						<td class="text-center"><a class="btn btn-primary"
+							th:href="@{'/book/detail/'+${item.bookId}}" th:text="#{btnDetail}"></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

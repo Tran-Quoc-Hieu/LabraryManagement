@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.header {
+	padding-top: 1rem !important;
+	padding-bottom: .5rem !important;
+	margin-bottom: 1rem !important;
+}
+
+.th-width {
+	width: 200px;
+}
+
+.form-signup {
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+	margin: auto;
+}

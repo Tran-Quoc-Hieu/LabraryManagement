@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<title>Create Author</title>
+<!-- Read CSS -->
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+		<form id="signup-form" method="post" action="/reader/add"
+		class="form-signup" th:object="${readerForm}">
+		<h1 class="text-center">Reader New</h1>
+		<div class="form-group">
+			<label for="readerEmail">Email</label>
+			<input type="text" class="form-control" th:field="*{readerEmail}" th:errorclass="is-invalid" />
+			<div class="invalid-feedback" th:errors="*{readerEmail}"></div>
+		</div>
+		<div class="form-group">
+			<label for="readerPassword">Password</label>
+			<input type="password" class="form-control" th:field="*{readerPassword}" th:errorclass="is-invalid" />
+			<div class="invalid-feedback" th:errors="*{readerPassword}"></div>
+		</div>
+		<div class="form-group">
+			<label for="readerName">Name</label>
+			<input type="text" class="form-control" th:field="*{readerName}" th:errorclass="is-invalid" />
+			<div class="invalid-feedback" th:errors="*{readerName}"></div>
+		</div>
+		<div class="form-group">
+			<label for="readerAddress">Address</label>
+			<input type="text" class="form-control" th:field="*{readerAddress}" th:errorclass="is-invalid" />
+			<div class="invalid-feedback" th:errors="*{readerAddress}"></div>
+		</div>
+		<input type="submit" value="CREATE" class="btn btn-primary w-100 mt-3" />
+	</form>
+	</div>
+</body>
+</html>
