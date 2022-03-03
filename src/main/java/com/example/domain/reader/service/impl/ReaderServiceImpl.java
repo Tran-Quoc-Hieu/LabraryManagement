@@ -21,9 +21,9 @@ public class ReaderServiceImpl implements ReaderService{
 	}
 
 	@Override
-	public MReader getReader() {
+	public MReader getReader(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.findById(id).orElse(null);
 	}
 
 	@Override
@@ -33,9 +33,9 @@ public class ReaderServiceImpl implements ReaderService{
 	}
 
 	@Override
-	public void deleteReader() {
+	public void deleteReader(Integer id) {
 		// TODO Auto-generated method stub
-		
+		repository.deleteById(id);
 	}
 
 	@Override

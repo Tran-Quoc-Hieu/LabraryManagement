@@ -31,7 +31,7 @@
 						<td th:text="${item.readerName}"></td>
 						<td th:text="${item.readerEmail}"></td>
 						<td th:text="${item.readerAddress}"></td>
-						<td class="text-center"><a class="btn btn-primary">Detail</a></td>
+						<td class="text-center"><a class="btn btn-primary" th:href="@{'/reader/detail/'+${item.readerId}}">Detail</a></td>
 					</tr>
 				</tbody>
 			</table>

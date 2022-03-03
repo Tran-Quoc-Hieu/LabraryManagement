@@ -7,11 +7,11 @@ import com.example.domain.reader.model.MReader;
 public interface ReaderService {
 	public List<MReader> getAll();
 	
-	public MReader getReader();
+	public MReader getReader(Integer id);
 	
 	public void updateReader();
 	
-	public void deleteReader();
+	public void deleteReader(Integer id);
 	
 	public void addReader(MReader reader);
 }

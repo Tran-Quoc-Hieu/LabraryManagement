@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -54,7 +55,16 @@ public class ReaderListController {
 	}
 	
 	@GetMapping("/detail/{readerId:.+}")
-	public String getReader(Model model, @ModelAttribute ReaderForm form) {
-		return "";
+	public String getReader(Model model, @PathVariable("readerId") Integer id) {
+		MReader reader = service.getReader(id);
+		ReaderForm form = mapper.map(reader, ReaderForm.class);
+		model.addAttribute("readerForm", form);
+		return "content/detailReader";
+	}
+	
+	@PostMapping(value = "/detail", params = "delete")
+	public String deleteReader(Model model,ReaderForm form) {
+		service.deleteReader(form.getReaderId());
+		return getListReader(model);
 	}
 }
