@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<title>Book Details</title>
+<!-- Read CSS -->
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+<script th:src="@{/js/br/detail.js}" defer></script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<form id="user-search-form" method="post" th:action="@{/br/list}" class="form-inline" th:object="${readerForm}">
+			<div class="form-group mx-sm-3">
+				<label for="userName" class="mr-2">User Name</label>
+				<select th:field="*{readerId}">
+					<option th:each="item: ${readerList}" th:value="${item.readerId}" th:text="${item.readerName} (${item.readerEmail})">
+				</select>
+			</div>
+			<button class="btn btn-primary" type="submit">search</button>
+		</form>
+		<form class="row row-cols-2" th:object="${addBrForm}">
+			<div class="col">
+				<div class="header border-bottom">
+					<h1 class="h2">User</h1>
+				</div>
+				<table class="table table-striped table-bordered table-hover">
+					<thead class="thead-light">
+						<tr>
+							<th class="th-width">User Name</th>
+							<th class="th-width">Email</th>
+							<th class="th-width">Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text="*{reader.readerName}"></td>
+							<td th:text="*{reader.readerEmail}"></td>
+							<td th:text="*{reader.readerAddress}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col">
+				<div class="header border-bottom">
+					<h1 class="h2">Book</h1>
+				</div>
+				<table class="table table-striped table-bordered table-hover">
+					<thead class="thead-light">
+						<tr>
+							<th class="th-width text-center">No.</th>
+							<th class="th-width">Title</th>
+							<th class="th-width">Author</th>
+							<th>Chọn</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item,state: *{bookList}">
+							<td class="text-center" th:text="${state.count}"></td>
+							<td th:text="${item.bookName}"></td>
+							<td th:text="${item.bookAuthor}"></td>
+							<td class="text-center"><input type="checkbox"
+								class="form-check-input" th:field="${item.bookCheck}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

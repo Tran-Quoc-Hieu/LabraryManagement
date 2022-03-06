@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.reader;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/reader")
 @Slf4j
-public class ReaderListController {
+public class ReaderController {
 	
 	@Autowired
 	private ReaderService service;
@@ -32,8 +32,15 @@ public class ReaderListController {
 	private ModelMapper mapper;
 	
 	@GetMapping("/list")
-	public String getListReader(Model model) {
-		List<MReader> readerList = service.getAll();
+	public String getListReader(Model model,@ModelAttribute ReaderForm form) {
+		List<MReader> readerList = service.getAll(form);
+		model.addAttribute("readerList", readerList);
+		return "content/listReader";
+	}
+	
+	@PostMapping("/list")
+	public String postListReader(Model model,@ModelAttribute ReaderForm form) {
+		List<MReader> readerList = service.getAll(form);
 		model.addAttribute("readerList", readerList);
 		return "content/listReader";
 	}
@@ -51,20 +58,28 @@ public class ReaderListController {
 		MReader reader = mapper.map(form, MReader.class);
 		service.addReader(reader);
 		log.info(form.toString());
-		return getListReader(model);
+		return "redirect:/reader/list";
 	}
 	
 	@GetMapping("/detail/{readerId:.+}")
 	public String getReader(Model model, @PathVariable("readerId") Integer id) {
 		MReader reader = service.getReader(id);
-		ReaderForm form = mapper.map(reader, ReaderForm.class);
-		model.addAttribute("readerForm", form);
+		model.addAttribute("reader", reader);
 		return "content/detailReader";
 	}
 	
-	@PostMapping(value = "/detail", params = "delete")
-	public String deleteReader(Model model,ReaderForm form) {
-		service.deleteReader(form.getReaderId());
-		return getListReader(model);
+	@GetMapping("/detail/update/{readerId:.+}")
+	public String updateReader(Model model, @PathVariable("readerId") Integer id) {
+		MReader reader = service.getReader(id);
+		model.addAttribute("readerForm", mapper.map(reader, ReaderForm.class));
+		return "content/updateReader";
+	}
+	
+	@GetMapping("/update/password/{readerId}")
+	public String updatePasssReader(Model model, @PathVariable("readerId") Integer id) {
+		MReader reader = service.getReader(id);
+		reader.setReaderPassword(null);
+		model.addAttribute("readerForm", mapper.map(reader, ReaderForm.class));
+		return "content/updatePasswordReader";
 	}
 }

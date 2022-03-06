@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<title>User List</title>
+<!-- Read Dedicated CSS -->
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div
+			class="header border-bottom row row-cols-auto justify-content-between mx-3">
+			<h1 class="h2">Books</h1>
+			<a class="btn btn-success" th:href="@{/book/add}"> ADD </a>
+		</div>
+		<div class="mb-4">
+			<form id="user-search-form" method="post" th:action="@{/book/list}"
+				class="form-inline" th:object="${bookForm}">
+				<div class="form-group">
+					<label for="userId" class="mr-2">Title</label> <input
+						type="text" class="form-control" th:field="*{bookName}" />
+				</div>
+				<div class="form-group mx-sm-3">
+					<label for="userName" class="mr-2">Author</label> <input
+						type="text" class="form-control" th:field="*{bookAuthor}" />
+				</div>
+				<div class="form-group mx-sm-3">
+					<label for="userName" class="mr-2">Type</label>
+					<select th:value="*{bookType}" th:field="*{bookType}" th:errorclass="is-invalid">
+						<option th:each="item: ${bookListTypes}"
+						th:value="${item.bookType}" th:text="${item.bookType}">
+					</select>
+				</div>
+				<div class="form-group mx-sm-3">
+					<label for="userName" class="mr-2">Publishing</label>
+					<select th:value="*{bookPublishing}" th:field="*{bookPublishing}" th:errorclass="is-invalid">
+						<option th:each="item: ${bookListTypes}"
+						th:value="${item.bookPublishing}" th:text="${item.bookPublishing}">
+					</select>
+				</div>
+				<button class="btn btn-primary" type="submit">search</button>
+			</form>
+		</div>
+		<!-- List display -->
+		<div>
+			<table class="table table-striped table-bordered table-hover">
+				<thead class="thead-light">
+					<tr>
+						<th class="th-width text-center">No.</th>
+						<th class="th-width">Title</th>
+						<th class="th-width">Type</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item,state: ${bookList}">
+						<td class="text-center" th:text="${state.count}"></td>
+						<td th:text="${item.bookName}"></td>
+						<td th:text="${item.bookType}"></td>
+						<td class="text-center">
+							<a class="btn btn-primary" th:href="@{'/book/detail/'+${item.bookId}}">Detail</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

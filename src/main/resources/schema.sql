@@ -16,11 +16,11 @@ create table if not exists book (
 );
 
 create table if not exists borrow_return_book (
-	br_reader_id INT,
-	br_book_id INT,
+	reader_id INT,
+	book_id INT,
 	br_date_borrow DATE,
 	br_date_return DATE,
-	primary key(br_reader_id, br_book_id)
+	primary key (reader_id, book_id)
 );
 
 

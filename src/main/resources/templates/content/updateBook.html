@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<title>Author Details</title>
+<!-- Read CSS -->
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+<script th:src="@{/js/book/detail.js}" defer></script>
+</head>
+<body>
+	<div layout:fragment="content"  th:object="${book}">
+		<div class="header border-bottom">
+			<h1 class="h2" th:text="*{bookName}"></h1>
+		</div>
+		<form id="book-detail-form">
+			<input type="hidden" th:field="*{bookId}">
+			<!-- User Details information -->
+			<table class="table table-striped table-bordered table-hover">
+				<tbody>
+					<tr>
+						<th>Name</th>
+						<td><input type="text" th:field="*{bookName}"></td>
+					</tr>
+					<tr>
+						<th>Author</th>
+						<td><input type="text" th:field="*{bookAuthor}"></td>
+					</tr>
+					<tr>
+						<th>Type</th>
+						<td><input type="text" th:field="*{bookType}"></td>
+					</tr>
+					<tr>
+						<th>Year Publishing</th>
+						<td><input type="text" th:field="*{bookYearPublishing}"></td>
+					</tr>
+					<tr>
+						<th>Publishing</th>
+						<td><input type="text" th:field="*{bookPublishing}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- Button area -->
+			<div class="text-center">
+				<!-- Update button -->
+				<Button id="btn-update-book" class="btn btn-primary" type="button" >Update</Button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

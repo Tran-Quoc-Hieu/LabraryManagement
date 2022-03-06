@@ -1,5 +1,4 @@
-package com.example.domain.reader.model;
-
+package com.example.domain.book.model;
 
 import java.util.List;
 
@@ -17,16 +16,18 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="reader")
-public class MReader {
+@Table(name="book")
+public class MBook {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer readerId;
-	private String readerEmail;
-	private String readerPassword;
-	private String readerName;
-	private String readerAddress;
+	private Integer bookId;
+	private String bookName;
+	private Integer bookYearPublishing;
+	private String bookType;
+	private String bookPublishing;
+	private String bookAuthor;
 	@OneToMany
-	@JoinColumn(insertable = false, updatable = false, name = "readerId")
-	private List<MBr> readerBrList;
+	@JoinColumn(insertable = false, updatable = false, name="bookId")
+	private List<MBr> bookBrList;
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<title>Book Details</title>
+<!-- Read CSS -->
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+<script th:src="@{/js/br/detail.js}" defer></script>
+</head>
+<body>
+	<div layout:fragment="content" th:object="${borrowReturnForm}">
+		<div class="row row-cols-2">
+			<div class="col">
+				<div class="header border-bottom">
+					<h1 class="h2">User</h1>
+				</div>
+				<table class="table table-striped table-bordered table-hover">
+					<tbody>
+						<tr>
+							<th>User Name</th>
+							<td th:text="*{reader.readerName}"></td>
+						</tr>
+						<tr>
+							<th>Email</th>
+							<td th:text="*{reader.readerEmail}"></td>
+						</tr>
+						<tr>
+							<th>Address</th>
+							<td th:text="*{reader.readerAddress}"></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="text-center">
+							<th colspan="2"><a class="btn btn-primary" th:href="@{'/reader/detail/'+*{brKey.readerId}}">Detail</a></th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="col">
+				<div class="header border-bottom">
+					<h1 class="h2">Book</h1>
+				</div>
+				<table class="table table-striped table-bordered table-hover">
+					<tbody>
+						<tr>
+							<th>Title</th>
+							<td th:text="*{book.bookName}"></td>
+						</tr>
+						<tr>
+							<th>Author</th>
+							<td th:text="*{book.bookAuthor}"></td>
+						</tr>
+						<tr>
+							<th>Type</th>
+							<td th:text="*{book.bookType}"></td>
+						</tr>
+						<tr>
+							<th>Year Publishing</th>
+							<td th:text="*{book.bookYearPublishing}"></td>
+						</tr>
+						<tr>
+							<th>Publishing</th>
+							<td th:text="*{book.bookPublishing}"></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="text-center">
+							<th colspan="2"><a class="btn btn-primary" th:href="@{'/book/detail/'+*{brKey.bookId}}">Detail</a></th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+		<form id="br-detail-form">
+			<!-- User Details information -->
+			<input type="hidden" th:field="*{brKey.readerId}">
+			<input type="hidden" th:field="*{brKey.bookId}">
+			<table class="table table-striped table-bordered table-hover">
+				<tbody>
+					<tr>
+						<th>Date Borrow</th>
+						<td th:text="*{brDateBorrow}" colspan="2"></td>
+					</tr>
+					<tr>
+						<th>Date Return</th>
+						<td th:text="*{brDateReturn}"></td>
+						<td th:if="*{brDateReturn == null}">
+							<button type="button" id="btn-update-br" class="btn btn-success">Trả sách</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- Button area -->
+			<div class="text-center">
+				<!-- Delete button -->
+				<button id="btn-delete-br" class="btn btn-danger" type="button" name="delete">Delete</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
