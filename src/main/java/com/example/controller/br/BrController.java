@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.domain.book.service.BookService;
 import com.example.domain.br.model.BrKey;
 import com.example.domain.br.model.MBr;
 import com.example.domain.br.service.BrService;
@@ -60,10 +59,14 @@ public class BrController {
 	}
 	
 	@GetMapping("/add")
-	public String getAdd(Model model,@ModelAttribute ReaderForm formReader, @ModelAttribute AddBrForm form) {
-		List<MReader> readerList = readerService.getAll(null);
+	public String getAdd(Model model,@ModelAttribute ReaderForm formReader) {
+		if (formReader.getReaderId() == null) {
+			formReader.setReaderId(1);
+		}
+		List<MReader> readerList = readerService.getAll(new ReaderForm());
 		model.addAttribute("readerList", readerList);
-		form = brService.formBr(formReader.getReaderId());
-		return "br/addBr";
+		AddBrForm form = brService.formBr(formReader.getReaderId());
+		model.addAttribute("addBrForm", form);
+		return "content/br/addBr";
 	}
 }

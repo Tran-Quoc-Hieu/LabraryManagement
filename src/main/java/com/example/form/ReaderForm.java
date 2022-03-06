@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.example.domain.book.model.Book;
 import com.example.domain.br.model.MBr;
 
 import lombok.Data;
@@ -26,4 +27,6 @@ public class ReaderForm {
 	@NotBlank
 	private String readerAddress;
 	private List<BorrowReturnForm> readerBrList;
+	
+	private List<BookForm> listBook;
 }

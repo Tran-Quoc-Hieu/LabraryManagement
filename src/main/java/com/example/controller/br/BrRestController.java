@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.br.service.BrService;
+import com.example.form.AddBrForm;
 import com.example.form.BorrowReturnForm;
 
 @RestController
@@ -23,6 +24,11 @@ public class BrRestController {
 	@PutMapping("/update")
 	public int updateCard(@ModelAttribute BorrowReturnForm form) {
 		service.update(form);
+		return 0;
+	}
+	@PutMapping("/choose")
+	public int chooseCard(@ModelAttribute AddBrForm form) {
+		service.addBook(form);
 		return 0;
 	}
 }

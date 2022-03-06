@@ -8,6 +8,11 @@ jQuery(function($){
     // User update
     updateBr();
   });
+  
+  $('#btn-choose-book').click(function (event) {
+    // User update
+    updateChoose();
+  });
 
   /** Delete button processing */
   $('#btn-delete-br').click(function (event) {
@@ -35,6 +40,34 @@ function updateBr() {
     // Redirect to user list screen
     window.location.href = '/br/detail/readerId='+formData[0].value+'&bookId='+formData[1].value;
 
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    // ajax failed
+    alert('Failed to return book');
+  }).always(function() {
+    // Process to always execute
+  });
+}
+
+/** User update processing */
+function updateChoose() {
+
+  // Get the value of the form
+  var formData = $('#user-search-form').serializeArray();
+
+  // ajax communication
+  $.ajax({
+    type : "PUT",
+    cache : false,
+    url : '/br/choose',
+    data: formData,
+    dataType : 'json',
+  }).done(function(data) {
+	console.log(formData);
+    // ajax success
+    alert('Return book successfully');
+    // Redirect to user list screen
+    window.location.href = '/br/add?readerId=';
+    
   }).fail(function(jqXHR, textStatus, errorThrown) {
     // ajax failed
     alert('Failed to return book');

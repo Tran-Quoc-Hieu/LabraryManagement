@@ -21,4 +21,6 @@ public interface BrService {
 	public void addMBr(MBr br);
 	
 	public AddBrForm formBr(Integer readerId);
+	
+	public void addBook(AddBrForm form);
 }

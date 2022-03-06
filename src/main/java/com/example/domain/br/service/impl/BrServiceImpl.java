@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public class BrServiceImpl implements BrService {
 
 	@Autowired
 	private ReaderService readerService;
-	
+
 	@Autowired
 	private ModelMapper mapper;
 
@@ -98,15 +97,37 @@ public class BrServiceImpl implements BrService {
 		// TODO Auto-generated method stub
 		AddBrForm form = new AddBrForm();
 		MReader reader = readerService.getReader(readerId);
-		form.setReader(mapper.map(reader, ReaderForm.class));
-		List<BookForm> bookForm = new ArrayList<BookForm>();
-		List<MBook> books = bookService.getAll(null);
+		List<MBook> books = bookService.getAll(new MBook());
+		List<MBook> bookId = new ArrayList<MBook>();
+		List<BookForm> formBook = new ArrayList<BookForm>();
 		for (int i = 0; i < reader.getReaderBrList().size(); i++) {
-			for (int j = 0; j < books.size(); j++) {
-				
+			if (reader.getReaderBrList().get(i).getBrDateReturn()==null) {
+				bookId.add(bookService.getBook(reader.getReaderBrList().get(i).getBrKey().getBookId()));
+			}
+			
+		}
+		books.removeIf(t -> bookId.contains(t));
+		for (MBook mBook : books) {
+			formBook.add(mapper.map(mBook, BookForm.class));
+		}
+		form.setReader(mapper.map(reader, ReaderForm.class));
+		form.setBookList(formBook);
+		return form;
+	}
+
+	@Override
+	public void addBook(AddBrForm form) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < form.getBookList().size(); i++) {
+			if (form.getBookList().get(i).getBookCheck() == true) {
+				BrKey key = new BrKey(form.getReader().getReaderId(), form.getBookList().get(i).getBookId());
+				Date date = new Date();
+				MBr br = new MBr();
+				br.setBrKey(key);
+				br.setBrDateBorrow(date);
+				addMBr(br);
 			}
 		}
-		return form;
 	}
 
 }
