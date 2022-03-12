@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title>Book List</title>
+<!-- Read Dedicated CSS -->
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+<script th:src="@{/js/book/addBook.js}" defer></script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row row-cols-auto justify-content-between border-bottom mb-3">
+			<h1 class="col col-md-4"><i class="fa-solid fa-table-list"></i> Sách</h1>
+			<div class="col">
+				<button role="presentation" sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-success px-3 py-2" data-bs-toggle="modal" data-bs-target="#addbook"><i class="fa-solid fa-plus"></i> Thêm mới</button>
+			</div>
+		</div>
+		<!-- Form search -->
+		<form method="get" action="/book/list" th:object="${bookSearchForm}">
+			<div class="row gx-0">
+				<div class="col">
+					<div class="row">
+						<label for="tilte" class="col-auto col-form-label">Tên sách</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" th:field="*{title}" placeholder="Book Name"/>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="row">
+					<label for="author" class="col-auto col-form-label">Tác giả</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" th:field="*{author}" placeholder="Author"/>
+					</div>
+					</div>
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+				</div>
+			</div>
+		</form>
+		<!-- List -->
+			<div class="table-responsive table table-striped mt-3">
+				<table class="table table-bordered table-hover mb-0 border-primary">
+					<thead class="table-primary border-primary">
+						<tr>
+							<th class="text-center col-1">No.</th>
+							<th class="text-center col-6">Tên sách</th>
+							<th class="text-center">Thể loại</th>
+							<th class="text-center col-2"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item,state: ${bookList}">
+							<td class="text-center fw-bold" th:text="${state.count}"></td>
+							<td th:text="${item.bookName}"></td>
+							<td th:text="${item.bookType}"></td>
+							<td class="text-center">
+								<a class="btn btn-outline-primary" th:href="@{'/book/detail/'+${item.bookId}}"><i class="fa-solid fa-circle-info"></i> Chi tiết</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="addbook" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h3 class="modal-title">THÊM SÁCH MỚI</h3>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <form id="form-add-book">
+		      	<div class="modal-body px-3" th:object="${bookForm}">
+		      		<div class="input-group mb-4">
+					  	<span class="input-group-text">Tên sách</span>
+					  	<input type="text" class="form-control" th:field="*{bookName}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{bookName}"></div>
+					</div>
+					<div class="input-group mb-4">
+					  	<span class="input-group-text">Tác giả</span>
+					  	<input type="text" class="form-control" th:field="*{bookAuthor}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{bookAuthor}"></div>
+					</div>
+					<div class="input-group mb-4">
+					  	<span class="input-group-text">Năm xuất bản</span>
+					  	<input type="text" class="form-control" th:field="*{bookYearPublishing}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{bookYearPublishing}"></div>
+					</div>
+					<div class="input-group mb-4">
+					  	<span class="input-group-text">Thể loại</span>
+					  	<input type="text" class="form-control" th:field="*{bookType}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{bookType}"></div>
+					</div>
+					<div class="input-group mb-4">
+					  	<span class="input-group-text">Nhà xuất bản</span>
+					  	<input type="text" class="form-control" th:field="*{bookPublishing}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{bookPublishing}"></div>
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+			        <button type="button" id="btn-add-book" class="btn btn-primary">Lưu</button>
+			      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</body>
+</html>

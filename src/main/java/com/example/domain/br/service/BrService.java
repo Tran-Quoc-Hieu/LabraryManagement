@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.example.domain.br.model.BrKey;
 import com.example.domain.br.model.MBr;
-import com.example.form.AddBrForm;
 import com.example.form.BorrowReturnForm;
 import com.example.form.BrSearchForm;
 
@@ -18,9 +17,5 @@ public interface BrService {
 	
 	public int delete(BorrowReturnForm form);
 	
-	public void addMBr(MBr br);
-	
-	public AddBrForm formBr(Integer readerId);
-	
-	public void addBook(AddBrForm form);
+	public void addMBr(BrKey br);
 }

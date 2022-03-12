@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.book.model.Book;
@@ -33,15 +35,18 @@ public class ReaderServiceImpl implements ReaderService{
 	
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@Override
-	public List<MReader> getAll(ReaderForm form) {
+	public List<MReader> getAll(MReader form) {
 		// TODO Auto-generated method stub
 		ExampleMatcher matcher = ExampleMatcher
 				.matching()
 				.withStringMatcher(StringMatcher.CONTAINING)
 				.withIgnoreCase();
-		return repository.findAll(Example.of(mapper.map(form, MReader.class), matcher));
+		return repository.findAll(Example.of(form, matcher));
 	}
 
 	@Override
@@ -66,6 +71,7 @@ public class ReaderServiceImpl implements ReaderService{
 	@Override
 	public void updatePasswordReader(MReader map) {
 		// TODO Auto-generated method stub
+		map.setReaderPassword(encoder.encode(map.getReaderPassword()));
 		repository.updatePasswordReader(map.getReaderId(), map.getReaderPassword());
 	}
 
@@ -91,13 +97,33 @@ public class ReaderServiceImpl implements ReaderService{
 	@Override
 	public void addReader(MReader reader) {
 		// TODO Auto-generated method stub
+		reader.setRole("ROLE_GENERAL");
+		reader.setReaderPassword(encoder.encode(reader.getReaderPassword()));
 		repository.save(reader);
 	}
-
+	
 	@Override
 	public Reader findReader(Integer id) {
 		// TODO Auto-generated method stub
 		return mapper.map(repository.findById(id).orElse(null), Reader.class);
+	}
+
+	@Override
+	public MReader getLogin(String email) {
+		// TODO Auto-generated method stub
+		return repository.findByReaderEmail(email); //repository.getLogin(email);
+	}
+
+	@Override
+	public void addUser(MReader user) {
+		// TODO Auto-generated method stub
+		MReader reader = repository.findByReaderEmail(user.getReaderEmail());
+		if (reader != null) {
+			throw new DataAccessException("User alraeady exits") {};
+		}
+		user.setRole("ROLE_GENERAL");
+		user.setReaderPassword(encoder.encode(user.getReaderPassword()));
+		repository.save(user);
 	}
 
 }

@@ -15,11 +15,10 @@ import com.example.domain.br.model.MBr;
 import com.example.domain.br.service.BrService;
 import com.example.domain.reader.model.MReader;
 import com.example.domain.reader.service.ReaderService;
-import com.example.form.AddBrForm;
 import com.example.form.BookForm;
 import com.example.form.BorrowReturnForm;
+import com.example.form.BrNew;
 import com.example.form.BrSearchForm;
-import com.example.form.ReaderForm;
 import com.example.repository.BrRepository;
 
 @Service
@@ -60,9 +59,11 @@ public class BrServiceImpl implements BrService {
 	@Override
 	public MBr getBr(BrKey br) {
 		// TODO Auto-generated method stub
-		MBr brNew = brRepository.getById(br);
-		brNew.setBook(bookService.findBook(brNew.getBrKey().getBookId()));
-		brNew.setReader(readerService.findReader(brNew.getBrKey().getReaderId()));
+		MBr brNew = brRepository.findById(br).orElse(null);
+		if (brNew != null) {
+			brNew.setBook(bookService.findBook(brNew.getBrKey().getBookId()));
+			brNew.setReader(readerService.findReader(brNew.getBrKey().getReaderId()));
+		}
 		return brNew;
 	}
 
@@ -87,47 +88,12 @@ public class BrServiceImpl implements BrService {
 	}
 
 	@Override
-	public void addMBr(MBr br) {
+	public void addMBr(BrKey brkey) {
 		// TODO Auto-generated method stub
+		Date date = new Date();
+		MBr br = new MBr();
+		br.setBrKey(brkey);
+		br.setBrDateBorrow(date);
 		brRepository.save(br);
 	}
-
-	@Override
-	public AddBrForm formBr(Integer readerId) {
-		// TODO Auto-generated method stub
-		AddBrForm form = new AddBrForm();
-		MReader reader = readerService.getReader(readerId);
-		List<MBook> books = bookService.getAll(new MBook());
-		List<MBook> bookId = new ArrayList<MBook>();
-		List<BookForm> formBook = new ArrayList<BookForm>();
-		for (int i = 0; i < reader.getReaderBrList().size(); i++) {
-			if (reader.getReaderBrList().get(i).getBrDateReturn()==null) {
-				bookId.add(bookService.getBook(reader.getReaderBrList().get(i).getBrKey().getBookId()));
-			}
-			
-		}
-		books.removeIf(t -> bookId.contains(t));
-		for (MBook mBook : books) {
-			formBook.add(mapper.map(mBook, BookForm.class));
-		}
-		form.setReader(mapper.map(reader, ReaderForm.class));
-		form.setBookList(formBook);
-		return form;
-	}
-
-	@Override
-	public void addBook(AddBrForm form) {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < form.getBookList().size(); i++) {
-			if (form.getBookList().get(i).getBookCheck() == true) {
-				BrKey key = new BrKey(form.getReader().getReaderId(), form.getBookList().get(i).getBookId());
-				Date date = new Date();
-				MBr br = new MBr();
-				br.setBrKey(key);
-				br.setBrDateBorrow(date);
-				addMBr(br);
-			}
-		}
-	}
-
 }

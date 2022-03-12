@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title>Book Details</title>
+<!-- Read CSS -->
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+<script th:src="@{/js/reader/detail.js}" defer></script>
+</head>
+<body>
+	<div layout:fragment="content">
+          <div class="container" th:object="${reader}">
+              	<h1 class="mb-4"><i class="fa-solid fa-user-tie"></i> <span th:text="*{readerName}"></span></h1>
+              	<form id="reader-detail-form">
+              		<input type="hidden" th:field="*{readerId}" />
+					<input type="hidden" th:field="*{readerName}" />
+              		<table class="table table-hover table-bordered">
+	                    <thead class="table-primary border-dark">
+		                    <tr>
+		                        <th scope="col">#</th>
+		                        <th scope="col">Thông tin</th>
+		                    </tr>
+	                    </thead>
+	                    <tbody class="border-dark">
+		                    <tr>
+		                        <th scope="row">Email</th>
+		                        <td th:text="*{readerEmail}"></td>
+		                    </tr>
+		                    <tr>
+		                        <th scope="row">Password</th>
+		                        <td>
+									<input type="password" th:value="*{readerPassword}" disabled="disabled">
+									<button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#updatePassword"><i class="fa-solid fa-pen-to-square"></i> Update Password</button>
+								</td>
+		                    </tr>
+		                    <tr>
+		                        <th scope="row">Địa chỉ</th>
+		                        <td th:text="*{readerAddress}"></td>
+		                    </tr>
+	                    </tbody>
+	                </table>
+	                <div class="row text-center">
+	                    <div class="col col-6" role="presentation" sec:authorize="hasRole('ADMIN')">
+	                        <button id="btn-delete-reader" class="btn btn-outline-danger btn-lg px-5" type="button"><i class="fa-solid fa-trash-can"></i> Delete</button>
+	                    </div>
+	                    <div class="col">
+	                        <button class="btn btn-outline-success btn-lg px-5" type="button" data-bs-toggle="modal" data-bs-target="#updateUser"><i class="fa-solid fa-pen-to-square"></i> Update</button>
+	                    </div>
+	                </div>
+                </form>
+        	</div>
+        	<div class="container" th:object="${reader}">
+        		<div th:if="*{readerBrList != null and readerBrList.size() > 0}">
+	            	<h3 class="my-4">Sách mượn</h3>
+	            	<table class="table">
+	              		<thead>
+	                		<tr>
+			                  <th scope="col">Tên sách</th>
+			                  <th scope="col">Ngày mượn</th>
+			                  <th scope="col">Ngày Trả</th>
+			                  <th scope="col"></th>
+			                </tr>
+	              		</thead>
+	              		<tbody>
+	                		<tr th:each="item,index: *{readerBrList}">
+		                  		<th scope="row" th:text="${item.book.bookName}"></th>
+		                  		<td th:text="${#dates.format(item.brDateBorrow, 'dd/MM/YYYY')}"></td>
+								<td>
+									<span th:text="${#dates.format(item.brDateReturn, 'dd/MM/YYYY')}"></span>
+									<a th:if="${item.brDateReturn} == null" class="btn btn-outline-success" th:href="@{'/user/update/readerId='+${item.brKey.readerId}+'&bookId='+${item.brKey.bookId}}"><i class="fa-solid fa-hand-holding-dollar"></i> Trả sách</a>
+								</td>
+		                  		<td class="text-end">
+									<a class="btn btn-outline-primary btn-lg" th:href="@{'/book/detail/'+${item.brKey.bookId}}"><i class="fa-solid fa-book-open-reader"></i> Sách</a>
+									<a class="btn btn-outline-primary btn-lg" th:href="@{'/br/detail/readerId='+${item.brKey.readerId}+'&bookId='+${item.brKey.bookId}}"  role="presentation" sec:authorize="hasRole('ADMIN')"><i class="fa-solid fa-address-card"></i> Thông tin mượn</a>
+								</td>
+	                		</tr>
+	                	</tbody>
+	                </table>
+	            </div>
+        	</div>
+        	<!-- Model user -->
+        <div class="modal fade" id="updateUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content" th:object="${readerUpForm}">
+		      <div class="modal-header">
+		        <h3 class="modal-title" th:text="*{readerName}"></h3>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <form id="form-update-user">
+		      	<input type="hidden" th:field="*{readerId}">
+		      	<div class="modal-body px-3">
+		      		<div class="input-group mb-4">
+					  	<span class="input-group-text">Tên</span>
+					  	<input type="text" class="form-control" th:field="*{readerName}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{readerName}"></div>
+					</div>
+					<div class="input-group mb-4">
+					  	<span class="input-group-text">Email</span>
+					  	<input type="text" class="form-control" th:field="*{readerEmail}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{readerEmail}"></div>
+					</div>
+					<div class="input-group mb-4">
+					  	<span class="input-group-text">Địa chỉ</span>
+					  	<input type="text" class="form-control" th:field="*{readerAddress}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{readerAddress}"></div>
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+			        <button type="button" id="btn-update-reader" class="btn btn-primary">Lưu</button>
+			      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+		<!-- Model Password -->
+		<div class="modal fade" id="updatePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content" th:object="${userPasswordForm}">
+		      <div class="modal-header">
+		        <h3 class="modal-title">Thay đổi mật khẩu</h3>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <form id="form-update-password">
+		      	<input type="hidden" th:field="*{readerId}">
+		      	<div class="modal-body px-3">
+		      		<div class="input-group mb-4">
+					  	<span class="input-group-text">Mật khẩu mới</span>
+					  	<input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{password}"></div>
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+			        <button type="button" id="btn-update-reader-password" class="btn btn-primary">Lưu</button>
+			      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</body>
+</html>

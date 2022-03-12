@@ -22,5 +22,4 @@ public class BookForm {
 	private String bookPublishing;
 	@NotBlank
 	private String bookAuthor;
-	private Boolean bookCheck;
 }

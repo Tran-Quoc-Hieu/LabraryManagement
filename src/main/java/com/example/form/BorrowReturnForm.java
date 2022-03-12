@@ -15,5 +15,4 @@ public class BorrowReturnForm {
 	private Date brDateReturn;
 	private Book book;
 	private Reader reader;
-	private boolean check;
 }

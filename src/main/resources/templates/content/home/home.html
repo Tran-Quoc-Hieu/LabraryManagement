@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<link rel="stylesheet" th:href="@{/css/content/home.css}">
+<title>Library</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1 class="text-center fw-bold mb-5">Thư viện</h1>
+		<div class="row row-cols-auto justify-content-evenly align-items-center" style="height: 200px" role="presentation" sec:authorize="hasRole('ADMIN')">
+			<div class="col button-css">
+				<a href="/book/list" class="rounded-circle">
+					<i class="fa-solid fa-books"></i>
+					<span class="text-primary"><i class="fa-solid fa-book-open"></i> Sách</span>
+				</a>
+			</div>
+			<div class="col button-css">
+				<a href="/br/list" class="rounded-circle">
+					<span class="text-primary"><i class="fa-solid fa-dove"></i> Lịch sử</span>
+				</a>
+			</div>
+			<div class="col button-css">
+				<a href="/reader/list" class="rounded-circle">
+					<span class="text-primary"><i class="fa-solid fa-users"></i> Độc giả</span>
+				</a>
+			</div>
+		</div>
+		<div class="row row-cols-auto justify-content-evenly align-items-center" style="height: 200px" th:object="${user}" role="presentation" sec:authorize="hasRole('GENERAL')">
+			<div class="col button-css">
+				<a th:href="@{'/user/detail/'+*{readerId}}" class="rounded-circle">
+					<span class="text-primary"><i class="fa-solid fa-user"></i> Tài Khoản</span>
+				</a>
+			</div>
+			<div class="col button-css">
+				<a th:href="@{/book/list}" class="rounded-circle">
+					<span class="text-primary"><i class="fa-solid fa-book-open"></i> Sách</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

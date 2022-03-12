@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Read CSS -->
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+<link rel="stylesheet" th:href="@{/css/layout/layout.css}">	
+<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+<script th:src="@{/js/login/signup.js}" defer></script>
+</head>
+<body class="vh-100 bg-color">
+	<div class="container py-5">
+		<div class="row d-flex justify-content-center align-items-center h-50">
+			<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+				<div class="card bg-dark text-white" style="border-radius: 1rem;">
+					<div class="card-body p-5 text-center mb-md-2 mt-md-2 pb-5">
+						<form id="user-form" class="form-signup" th:object="${signupForm}">
+							<h2 class="fw-bold mb-2 text-uppercase">Tạo tài khoản</h2>
+							<div class="form-outline form-white mb-4">
+								<label class="form-label" for="readerEmail">Email</label>
+								<input type="text" class="form-control" th:field="*{readerEmail}"
+									th:errorclass="is-invalid" />
+								<div class="invalid-feedback" th:errors="*{readerEmail}"></div>
+							</div>
+							<div class="form-outline form-white mb-4">
+								<label for="readerPassword">Mật khẩu</label>
+								<input type="password" class="form-control"
+									th:field="*{readerPassword}" th:errorclass="is-invalid" />
+								<div class="invalid-feedback" th:errors="*{readerPassword}"></div>
+							</div>
+							<div class="form-outline form-white mb-4">
+								<label for="readerName">Tên độc giả</label>
+								<input type="text" class="form-control" th:field="*{readerName}"
+									th:errorclass="is-invalid" />
+								<div class="invalid-feedback" th:errors="*{readerName}"></div>
+							</div>
+							<div class="form-outline form-white mb-4">
+								<label for="readerAddress">Địa chỉ</label>
+								<input type="text" class="form-control" th:field="*{readerAddress}"
+									th:errorclass="is-invalid" />
+								<div class="invalid-feedback" th:errors="*{readerAddress}"></div>
+							</div>
+							<button type="button" id="btn-signup" class="btn btn-primary w-100 mt-3">Đăng ký</button>
+						</form>
+						<a th:href="@{/login}">Quay lại</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

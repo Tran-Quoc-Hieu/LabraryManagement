@@ -1,9 +1,10 @@
 create table if not exists reader (
 	reader_id INT IDENTITY(1, 1) primary key,
-	reader_email varchar(255),
-	reader_password varchar(25),
+	reader_email varchar(255) unique,
+	reader_password varchar(255),
 	reader_name varchar(255),
-	reader_address varchar(255)
+	reader_address varchar(255),
+	role varchar(50)
 );
 
 create table if not exists book (

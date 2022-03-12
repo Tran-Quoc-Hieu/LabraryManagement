@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout}">
+	layout:decorate="~{layout/layout}"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 </head>
 <body>
-	<nav layout:fragment="header"
-		class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Library</a>
-			</div>
-		</div>
-	</nav>
+	<header layout:fragment="header" class="fixed-top">
+      <nav class="navbar navbar-expand-md navbar-dark bg-color">
+        <div class="container">
+          <a class="navbar-brand" th:href="@{'/home'}"><i class="fa-solid fa-house-chimney"></i> TRANG CHỦ</a>
+          <button 
+          	class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>	
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{'/book/list'}" ><i class="fa-solid fa-book-open"></i> SÁCH</a>
+              </li>
+              <li class="nav-item" role="presentation" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" th:href="@{'/br/list'}"><i class="fa-solid fa-dove"></i> LỊCH SỬ</a>
+              </li>
+              <li class="nav-item" role="presentation" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" th:href="@{'/reader/list'}"><i class="fa-solid fa-users"></i> ĐỘC GIẢ</a>
+              </li>
+            </ul>
+            <form method="post" th:action="@{/logout}">
+				<button class="btn btn-link pull-right navbar-brand" type="submit">
+					Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+			</form>
+          </div>
+        </div>
+      </nav>
+    </header>
 </body>
 </html>

@@ -27,6 +27,5 @@ public class ReaderForm {
 	@NotBlank
 	private String readerAddress;
 	private List<BorrowReturnForm> readerBrList;
-	
 	private List<BookForm> listBook;
 }

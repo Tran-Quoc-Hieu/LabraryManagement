@@ -1,9 +1,9 @@
-insert into reader(reader_id, reader_email, reader_password,reader_name, reader_address)
+insert into reader(reader_id, reader_email, reader_password,reader_name, reader_address, role)
 values
-(1, 'admin@gmail.com', 'admin', 'Admin', 'Library'),
-(2, 'hieutran@gmail.com', 'password', 'Trần Quốc Hiếu', 'HCM'),
-(3, 'namtrinh@gmail.com', 'password', 'Trịnh Đình Nam', 'HCM'),
-(4, 'sonnguyen@gmail.com', 'password', 'Nguyễn Võ Thanh Sơn', 'HCM');
+(1, 'admin@gmail.com', '$2a$10$eylGU69MQW0ks0BBxdBveummqvhDuxpaoHktXvRXmzcQoc/SaVVsW', 'Admin', 'Library', 'ROLE_ADMIN'),
+(2, 'hieutran@gmail.com', '$2a$10$nQZ/Y7RP/bXwerh2ioDNoesltTHnx5E0thbb19s/wK0imI6KDXVLG', 'Trần Quốc Hiếu', 'HCM', 'ROLE_GENERAL'),
+(3, 'namtrinh@gmail.com', '$2a$10$nQZ/Y7RP/bXwerh2ioDNoesltTHnx5E0thbb19s/wK0imI6KDXVLG', 'Trịnh Đình Nam', 'HCM','ROLE_GENERAL'),
+(4, 'sonnguyen@gmail.com', '$2a$10$nQZ/Y7RP/bXwerh2ioDNoesltTHnx5E0thbb19s/wK0imI6KDXVLG', 'Nguyễn Võ Thanh Sơn', 'HCM','ROLE_GENERAL');
 
 insert into book(book_id, book_name, book_year_publishing, book_type, book_publishing, book_author)
 values

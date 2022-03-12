@@ -62,9 +62,9 @@
 		</dependency>
 		<!-- bootstrap -->
 		<dependency>
-			<groupId> org.webjars</groupId>
-			<artifactId> bootstrap</artifactId>
-			<version> 4.5.3</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>5.1.3</version>
 		</dependency>
 		<!-- webjars-locator -->
 		<dependency>
@@ -105,6 +105,23 @@
 			<groupId> org.springframework.boot</groupId>
 			<artifactId> spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<!-- Thyemeleaf Extension Library (Security) -->
+		<dependency>
+			<groupId> org.springframework.boot</groupId>
+			<artifactId> spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId> org.thymeleaf.extras</groupId>
+			<artifactId> thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+		<!-- font-awesome -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>font-awesome</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

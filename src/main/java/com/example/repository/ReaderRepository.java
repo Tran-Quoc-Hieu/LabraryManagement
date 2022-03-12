@@ -25,5 +25,9 @@ public interface ReaderRepository extends JpaRepository<MReader, Integer>{
 	public void updatePasswordReader(@Param("readerId") Integer readerId, 
 			@Param("readerPassword") String readerPassword);
 	
+//	@Query("select reader from MReader reader where reader.readerEmail=:readerEmail")
+//	public MReader getLogin(@Param("readerEmail") String readerEmail);
+	
+	MReader findByReaderEmail(String readerEmail);
 	
 }

@@ -26,6 +26,7 @@ public class MReader {
 	private String readerPassword;
 	private String readerName;
 	private String readerAddress;
+	private String role;
 	@OneToMany
 	@JoinColumn(insertable = false, updatable = false, name = "readerId")
 	private List<MBr> readerBrList;

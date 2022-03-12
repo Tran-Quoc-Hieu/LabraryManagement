@@ -7,13 +7,16 @@ import com.example.domain.reader.model.Reader;
 import com.example.form.ReaderForm;
 
 public interface ReaderService {
-	public List<MReader> getAll(ReaderForm form);
+	
+	public void addUser(MReader user);
+	
+	public List<MReader> getAll(MReader form);
 	
 	public MReader getReader(Integer id);
 	
-	public void updateReader(MReader reader);
-	
 	public Reader findReader(Integer id);
+	
+	public void updateReader(MReader reader);
 	
 	public int deleteReader(Integer id);
 	
@@ -21,4 +24,5 @@ public interface ReaderService {
 
 	public void updatePasswordReader(MReader map);
 
+	public MReader getLogin(String email);
 }

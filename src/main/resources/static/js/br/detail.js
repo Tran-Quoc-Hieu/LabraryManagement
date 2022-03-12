@@ -8,11 +8,6 @@ jQuery(function($){
     // User update
     updateBr();
   });
-  
-  $('#btn-choose-book').click(function (event) {
-    // User update
-    updateChoose();
-  });
 
   /** Delete button processing */
   $('#btn-delete-br').click(function (event) {
@@ -36,45 +31,18 @@ function updateBr() {
     dataType : 'json',
   }).done(function(data) {
     // ajax success
-    alert('Return book successfully');
+    alert('Trả sách thành công');
     // Redirect to user list screen
     window.location.href = '/br/detail/readerId='+formData[0].value+'&bookId='+formData[1].value;
 
   }).fail(function(jqXHR, textStatus, errorThrown) {
     // ajax failed
-    alert('Failed to return book');
+    alert('Trả sách thất bại');
   }).always(function() {
     // Process to always execute
   });
 }
 
-/** User update processing */
-function updateChoose() {
-
-  // Get the value of the form
-  var formData = $('#user-search-form').serializeArray();
-
-  // ajax communication
-  $.ajax({
-    type : "PUT",
-    cache : false,
-    url : '/br/choose',
-    data: formData,
-    dataType : 'json',
-  }).done(function(data) {
-	console.log(formData);
-    // ajax success
-    alert('Return book successfully');
-    // Redirect to user list screen
-    window.location.href = '/br/add?readerId=';
-    
-  }).fail(function(jqXHR, textStatus, errorThrown) {
-    // ajax failed
-    alert('Failed to return book');
-  }).always(function() {
-    // Process to always execute
-  });
-}
 
 /** User delete processing */
 function deleteBr() {
@@ -91,14 +59,14 @@ function deleteBr() {
     dataType : 'json',
   }).done(function(data) {
 	if (data == 1) {
-		alert('Failed to delete card\nBecause there are return book');
+		alert('Xóa lịch sử thất bại\n-> Độc giả chưa trả sách');
 	}else {
-		alert('Delete card successfully');
+		alert('Xóa lịch sử thành công');
 		window.location.href = '/br/list';
 	}
   }).fail(function(jqXHR, textStatus, errorThrown) {
     // ajax failed
-    alert('Failed to delete card');
+    alert('Xóa lịch sử thất bại');
 
   }).always(function() {
     // Process to always execute

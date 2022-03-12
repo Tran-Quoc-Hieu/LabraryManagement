@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<title>Book List</title>
+<!-- Read Dedicated CSS -->
+<link rel="stylesheet" th:href="@{/css/content/list.css}">
+<script th:src="@{/js/reader/addUser.js}" defer></script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row row-cols-auto justify-content-between border-bottom mb-3">
+			<h1 class="col col-md-4"><i class="fa-solid fa-table-list"></i> Người dùng</h1>
+			<div class="col">
+				<button type="button" class="btn btn-success px-3 py-2" data-bs-toggle="modal" data-bs-target="#adduser"><i class="fa-solid fa-plus"></i> Thêm mới</button>
+			</div>
+		</div>
+		<!-- Form search -->
+		<form method="get" action="/reader/list" th:object="${userSearchForm}">
+			<div class="row gx-0">
+				<div class="col">
+					<div class="row">
+						<label for="tilte" class="col-auto col-form-label">Tên người dùng</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" th:field="*{userName}" placeholder="User name"/>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="row">
+					<label for="author" class="col-auto col-form-label">Địa chỉ</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" th:field="*{address}" placeholder="Address"/>
+					</div>
+					</div>
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+				</div>
+			</div>
+		</form>
+		<!-- List -->
+			<div class="table-responsive table table-striped mt-3">
+				<table class="table table-bordered table-hover mb-0 border-primary">
+					<thead class="table-primary border-primary">
+						<tr>
+							<th class="text-center col-1">No.</th>
+							<th class="text-center col-3">Tên</th>
+							<th class="text-center col-4">Email</th>
+							<th class="text-center">Địa chỉ</th>
+							<th class="text-center col-2"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item,state: ${readerList}">
+							<td class="text-center fw-bold" th:text="${state.count}"></td>
+							<td th:text="${item.readerName}"></td>
+							<td th:text="${item.readerEmail}"></td>
+							<td th:text="${item.readerAddress}"></td>
+							<td class="text-center">
+								<a class="btn btn-outline-primary" th:href="@{'/user/detail/'+${item.readerId}}"><i class="fa-solid fa-circle-info"></i> Chi tiết</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="adduser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h3 class="modal-title">Thêm người dùng</h3>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <form id="form-add-user">
+		      	<div class="modal-body px-3" th:object="${readerForm}">
+		      		<div class="input-group mb-4">
+					  	<span class="input-group-text">Email</span>
+					  	<input type="text" class="form-control" th:field="*{readerEmail}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{readerEmail}"></div>
+					</div>
+					<div class="input-group mb-4">
+					  	<span class="input-group-text">Mật khẩu</span>
+					  	<input type="password" class="form-control" th:field="*{readerPassword}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{readerPassword}"></div>
+					</div>
+					<div class="input-group mb-4">
+					  	<span class="input-group-text">Tên</span>
+					  	<input type="text" class="form-control" th:field="*{readerName}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{readerName}"></div>
+					</div>
+					<div class="input-group mb-4">
+					  	<span class="input-group-text">Địa chỉ</span>
+					  	<input type="text" class="form-control" th:field="*{readerAddress}" th:errorclass="is-invalid" aria-describedby="basic-addon3">
+						<div class="invalid-feedback" th:errors="*{readerAddress}"></div>
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+			        <button type="button" id="btn-add-user" class="btn btn-primary">Lưu</button>
+			      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</body>
+</html>

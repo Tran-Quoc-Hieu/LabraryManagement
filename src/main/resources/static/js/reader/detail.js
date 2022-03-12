@@ -24,9 +24,9 @@ jQuery(function($){
 
 /** User update processing */
 function updateReader() {
-
+	removeValidResult();
   // Get the value of the form
-  var formData = $('#reader-detail-form').serializeArray();
+  var formData = $('#form-update-user').serializeArray();
 
   // ajax communication
   $.ajax({
@@ -36,14 +36,22 @@ function updateReader() {
     data: formData,
     dataType : 'json',
   }).done(function(data) {
-    // ajax success
-    alert('Updated successfully');
-    // Redirect to user list screen
-    window.location.href = '/reader/detail/'+formData[0].value;
+	if(data.result === 90) {
+	
+      $.each(data.errors, function (key, value) {
+	
+        reflectValidResult(key, value)
+      });
+    }else if (data.result === 10) {
+		alert('Email đã có người sử dụng');
+	}else{
+      alert('Cập nhật người dùng thành công');
+      window.location.href = '/user/detail/'+formData[0].value;
+    }
 
   }).fail(function(jqXHR, textStatus, errorThrown) {
     // ajax failed
-    alert('Failed to update');
+    alert('Cập nhật thất bại');
   }).always(function() {
     // Process to always execute
   });
@@ -51,9 +59,9 @@ function updateReader() {
 
 /** User update processing */
 function updatePasswordReader() {
-
+	removeValidResult();
   // Get the value of the form
-  var formData = $('#reader-detail-form').serializeArray();
+  var formData = $('#form-update-password').serializeArray();
 
   // ajax communication
   $.ajax({
@@ -63,14 +71,19 @@ function updatePasswordReader() {
     data: formData,
     dataType : 'json',
   }).done(function(data) {
-    // ajax success
-    alert('Updated successfully');
-    // Redirect to user list screen
-    window.location.href = '/reader/detail/'+formData[0].value;
-
+	if(data.result === 90) {
+	
+      $.each(data.errors, function (key, value) {
+	
+        reflectValidResult(key, value)
+      });
+    } else{
+      alert('Cập nhật mật khẩu thành công');
+      window.location.href = '/user/detail/'+formData[0].value;
+    }
   }).fail(function(jqXHR, textStatus, errorThrown) {
     // ajax failed
-    alert('Failed to update');
+    alert('Cập nhật thất bại');
   }).always(function() {
     // Process to always execute
   });
@@ -91,16 +104,44 @@ function deleteReader() {
     dataType : 'json',
   }).done(function(data) {
 	if (data == 1) {
-		alert('Failed to delete reader\nBecause there are return books');
+		alert('Xóa người dùng không thành công\n-> Người dùng chưa trả sách');
 	}else {
-		alert('Delete user successfully');
+		alert('Xóa người dùng thành công');
 		window.location.href = '/reader/list';
 	}
   }).fail(function(jqXHR, textStatus, errorThrown) {
     // ajax failed
-    alert('Failed to delete reader');
+    alert('Xóa người dùng thất bại');
 
   }).always(function() {
     // Process to always execute
   });
+}
+
+/** Clear validation results */
+function removeValidResult() {
+  $('.is-invalid').removeClass('is-invalid');
+  $('.invalid-feedback').remove();
+  $('.text-danger').remove();
+}
+
+/** Reflection of the validation result */
+function reflectValidResult(key, value) {
+
+  // Add error message
+  if(key === 'gender') { // For gender fields
+    // Apply CSS
+    $('input[name=' + key + ']').addClass('is-invalid');
+    // Add error message
+    $('input[name=' + key + ']')
+        .parent().parent()
+        .append('<div class="text-danger">' + value + '</div>');
+
+  } else { // For fields other than gender
+    // Apply CSS
+    $('input[id=' + key + ']').addClass('is-invalid');
+    // Add error message
+    $('input[id=' + key + ']')
+        .after('<div class="invalid-feedback">' + value + '</div>');
+  }
 }
