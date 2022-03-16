@@ -3,18 +3,67 @@ values
 (1, 'admin@gmail.com', '$2a$10$eylGU69MQW0ks0BBxdBveummqvhDuxpaoHktXvRXmzcQoc/SaVVsW', 'Admin', 'Library', 'ROLE_ADMIN'),
 (2, 'hieutran@gmail.com', '$2a$10$nQZ/Y7RP/bXwerh2ioDNoesltTHnx5E0thbb19s/wK0imI6KDXVLG', 'Trần Quốc Hiếu', 'HCM', 'ROLE_GENERAL'),
 (3, 'namtrinh@gmail.com', '$2a$10$nQZ/Y7RP/bXwerh2ioDNoesltTHnx5E0thbb19s/wK0imI6KDXVLG', 'Trịnh Đình Nam', 'HCM','ROLE_GENERAL'),
-(4, 'sonnguyen@gmail.com', '$2a$10$nQZ/Y7RP/bXwerh2ioDNoesltTHnx5E0thbb19s/wK0imI6KDXVLG', 'Nguyễn Võ Thanh Sơn', 'HCM','ROLE_GENERAL');
+(4, 'sonnguyen@gmail.com', '$2a$10$nQZ/Y7RP/bXwerh2ioDNoesltTHnx5E0thbb19s/wK0imI6KDXVLG', 'Nguyễn Võ Thanh Sơn', 'HCM','ROLE_GENERAL'),
+(5, 'sangnv@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Nguyển Văn Sang', '4/66 Tô Hưng Hoà Đồng Nai','ROLE_GENERAL'),
+(6, 'anhlh@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Lê Hồng Anh', '25/78C Tổ 55 Nhị Tân Hóc Môn','ROLE_GENERAL'),
+(7, 'loitp@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Phạm Thị Lợi', '12/75/65C Nhị Bình Hóc Môn','ROLE_GENERAL'),
+(8, 'canhlv@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Lê Văn Cảnh', '4/89 Tổ 66 Nhị Tân 2 Hóc Môn','ROLE_GENERAL'),
+(9, 'thongdv@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Đặng Văn Thông', '33/67 Lê Văn Đồng Quận 12','ROLE_GENERAL'),
+(10, 'nhattl@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Lý Tiểu Nhật', '116/78 Lê Lai Quận 6','ROLE_GENERAL'),
+(11, 'phonglh@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Lê Hồng Phong', '668/7 Gò Vấp','ROLE_GENERAL'),
+(12, 'tulv@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Lý Văn Từ', '4/978/4C Tổ 7 Lâm Đồng','ROLE_GENERAL'),
+(13, 'tucv@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Chân Văn Tử', '417/7 Cái Bè','ROLE_GENERAL'),
+(14, 'vuitv@gmail.com', '$2a$10$.O8aaVmJK54kgZZpFC7cK.7pPa0atWbHGKew12.cN.Agu7qVgEDqq', 'Trần Văn Vui', '11/37 Tổ 76 Thống Nhất Hóc Môn','ROLE_GENERAL');
 
 insert into book(book_id, book_name, book_year_publishing, book_type, book_publishing, book_author)
 values
 (1, 'Tuyên Ngôn Độc Lập', 1945, 'Văn chính luận', 'NXB Thế Giới', 'Hồ Chí Minh'),
 (2, 'Hai đứa trẻ', 1938, 'Văn học', 'NXB Văn Học', 'Thạch Lam'),
-(3, 'Việt Bắc', 1954, 'Thơ', 'NXB Văn học', 'Tố Hữu');
+(3, 'Việt Bắc', 1954, 'Thơ', 'NXB Văn học', 'Tố Hữu'),
+(4, 'Một Cuộc Đời', 2009, 'Truyện', 'NXB Kim Thanh', 'Lê Văn Long'),
+(5, 'Từ Truyện', 2010, 'Truyện', 'NXB Kim Đồng', 'Nguyễn Thái Minh'),
+(6, 'Thất Tịnh Không Sao', 2006, 'Tiểu Thuyết', 'NXB Kim Đồng', 'Nguyễn Ngọc Thạch'),
+(7, 'Cho Tôi Xin Một Vé Đi Về Tuổi Thơ', 2010, 'Truyện', 'NXB Kim Đồng', 'Nguyễn Nhật Anh'),
+(8, 'Cô Gái Đến Từ Hôm Qua', 2012, 'Truyện', 'NXB Kim Đồng', 'Nguyễn Nhật Anh'),
+(9, 'Hôm Nay Tôi Thất Tình', 2010, 'Truyện', 'NXB Kim Đồng', 'Hạ Vũ'),
+(10, 'Duyên Phận Ý Trời Hay Là Lòng Người', 2009, 'Truyện', 'NXB Kim Đồng', 'Tuệ Nhi'),
+(11, 'Bức Xúc Không Làm Ta Vô Cảm', 2014, 'Tiểu thuyết', 'NXB Kim Dung', 'Đặng Hoàng Giang'),
+(12, 'Cốt Cách Phụ Nữ', 2008, 'Tiểu thuyết', 'NXB Kim Dung', 'Huyền Trang Bất Hối'),
+(13, 'Cho Những Ngày Không Nhau Mà Vẫn Đau', 2004, 'Tiểu Thuyết', 'NXB Kim Đồng', 'Trí'),
+(14, 'Con Chó Nhỏ Mang Giỏ Hoa Hồng', 2017, 'Tiểu Thuyết', 'NXB Kim Dung', 'Nguyễn Nhật Anh'),
+(15, 'Thanh Xuân Không Hổi Tiếc', 2003, 'Tiểu Thuyết', 'NXB Kim Dung', 'Du Phong'),
+(16, 'Yêu Anh Hơn Cả Tử Thần', 2003, 'Truyện', 'NXB Kim Đồng', 'Tào Đình'),
+(17, 'Nụ Hôn Của Quỷ', 2015, 'Truyện', 'NXB Kim Đồng', 'Tiểu Ni Tử'),
+(18, 'Thiếu Nữ Toàn Phong', 2011, 'Truyện', 'NXB Kim Đồng', 'Minh Hiểu Khê'),
+(19, 'Dư Vị Trà Chiều', 2006, 'Truyện', 'NXB Kim Đồng', 'Minh Hiểu Khê'),
+(20, 'Xu Xu Đừng Khóc', 2003, 'Truyện', 'NXB Kim Đồng', 'Hồng Sakura'),
+(21, 'Thất Tịch Không Mưa', 2001, 'Truyện', 'NXB Kim Đồng', 'Lâu Tình Vũ'),
+(22, 'Hoá Ra Anh Vẫn Ở Đây', 2006, 'Truyện', 'NXB Kim Đồng', 'Tân Di Ổ'),
+(23, 'Đạo Tình', 2013, 'Truyện', 'NXB Kim Dung', 'Chu Ngọc'),
+(24, 'Bên Nhau Trọn Đời', 2005, 'Tiểu thuyết', 'NXB Kim Dung', 'Cổ Mạn'),
+(25, 'Hãy Nhắm Mắt Khi Anh Đến', 2003, 'Tiểu thuyết', 'NXB Kim Dung', 'Đinh Mạc');
 
 insert into borrow_return_book (reader_id, book_id, br_date_borrow, br_date_return)
 values
 (2, 1, '2022-02-01','2022-02-07'),
 (4, 1, '2022-02-01',null),
 (2, 3, '2022-01-05','2022-01-12'),
-(3, 3, '2022-02-28',null);
+(3, 3, '2022-02-28',null),
+(13, 13, '2022-01-19','2022-01-22'),
+(14, 24, '2022-02-26',null),
+(5, 10, '2021-05-31','2021-06-30'),
+(9, 16, '2021-12-17','2022-01-29'),
+(14, 15, '2021-08-10','2021-08-17'),
+(9, 25, '2021-07-02','2021-07-15'),
+(13, 1, '2022-02-13',null),
+(5, 16, '2021-08-01','2021-08-17'),
+(4, 2, '2021-12-02','2021-12-10'),
+(9, 12, '2021-09-30','2021-10-29'),
+(12, 16, '2022-01-27','2022-02-03'),
+(5, 3, '2021-11-22','2021-12-02'),
+(5, 7, '2022-02-28',null),
+(13, 25, '2021-11-20','2021-11-30'),
+(10, 11, '2021-04-30','2021-05-11'),
+(10, 21, '2021-09-12','2021-09-24'),
+(2, 7, '2022-01-09','2022-01-15');
 
