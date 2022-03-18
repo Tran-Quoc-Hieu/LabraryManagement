@@ -49,7 +49,7 @@ public class BrController {
 		return "content/br/listBr";
 	}
 	
-	@GetMapping("/detail/readerId={readerId:.}&bookId={bookId:.}")
+	@GetMapping("/detail/readerId={readerId:.+}&bookId={bookId:.+}")
 	public String getDetail(Model model,@PathVariable("readerId") Integer readerId, @PathVariable("bookId") Integer bookId) {
 		BrKey key = new BrKey(readerId, bookId);
 		MBr br = brService.getBr(key);
